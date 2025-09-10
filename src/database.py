@@ -1,0 +1,31 @@
+from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
+from sqlalchemy.orm import DeclarativeBase
+
+from src.config import settings
+
+
+engine = create_async_engine(settings.DB_URL)
+
+async_session_maker = async_sessionmaker(bind=engine, expire_on_commit=False)
+
+class BaseModel(DeclarativeBase):
+    pass
+
+
+
+
+
+
+
+#  Базовый синтаксис для сырых запросов через алхимию
+'''
+import asyncio
+async def found():
+    from sqlalchemy import text
+
+    async with engine.begin() as conn:
+        res = await conn.execute(text('SELECT version()'))
+        print(res.fetchone())
+
+asyncio.run(found())
+'''
